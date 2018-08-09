@@ -3,24 +3,37 @@
  * Track and display the number of clicks on the cat photo
 */
 
-var count = 0;
-var cat1 = document.getElementById('catPic1');
-var cat2 = document.getElementById('catMelon');
+document.addEventListener("DOMContentLoaded", function() {
+
+  let catList = document.getElementById("catList");
+  let catNames = ["Sherbert", "Melon", "Bombpop", "Donut", "Wonton"];
+
+  for (let name = 0; name < catNames.length; name++) {
+    let catName = catNames[name];
+
+    let catNameItem = document.createElement('button');
+        catNameItem.innerHTML = catName;
+        catNameItem.className = "catNameListItem";
+        catNameItem.setAttribute("id", "cat" + catName);
+        catNameItem.setAttribute("onclick", "showCat('"+catName+"');");
+
+    catList.appendChild(catNameItem);
+  }
+})
 
 
-var catNames = ["Sherbert", "Melon"]
+function showCat(nameofcat){
+  let catNameHeader = document.createElement('h2');
+      catNameHeader.innerHTML = nameofcat;
 
-for (let n = 0; n < catNames.length; n++) {
-  var newName = document.createElement('h2');
-      newName.innerHTML = catNames[n];
-      newName.className = "catName";
-  
-  document.getElementsByTagName('img')[n].before(newName);
+  document.getElementById('catPhotoArea').before(catNameHeader);
+
+  document.getElementById('catPhotoArea').src='cat' + nameofcat + '.jpg';
 }
 
 
 
-var allCats = document.getElementById('allCats');
+/*var allCats = document.getElementById('allCats');
 var catPics = allCats.getElementsByClassName('catpic');
 
 for (let m = 0; m < catPics.length; m++) {
@@ -29,7 +42,7 @@ for (let m = 0; m < catPics.length; m++) {
   
   document.getElementsByTagName('img')[m].before(newCounter);
 
-}
+}*/
 
 /*for (let e = 0; e < catPics.length; e++) {
   var img = document.getElementById('allCats' + e);
