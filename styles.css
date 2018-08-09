@@ -1,10 +1,10 @@
-.cats-container {
-    display: flex;
-    justify-content: space-evenly;
+.container {
+  width: 80%;
+  margin: 0 auto;
 }
 
 h1 {
-  text-align: center;
+  
 }
 
 #counter {
@@ -17,4 +17,22 @@ img {
   width:500px;
   height: 300px; 
   cursor:pointer;
+}
+
+#catHeader {
+  width: 600px;
+  text-align: end;
+}
+
+#catList {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100px;
+  justify-content: center;
+  float: left;
+  margin: 10px;
+}
+
+button {
+  width: 100%;
 }
