@@ -17,12 +17,12 @@ var cats = allCats.getElementsByClassName('catpic');
 
 
     
-  for (let n = 0; n < catNames.length; n++) {
+  for (var n = 0; n < catNames.length; n++) {
     var newName = document.createElement('span');
         newName.innerHTML = catNames[n];
         newName.className = "catName";
 
-    for (let c = 0; c < cats.length; c++) {
+    for (var c = 0; c < cats.length; c++) {
       var cat = document.getElementById('allCats' + c);
       cat.parentNode.insertBefore(newName, cat) 
     }
@@ -39,11 +39,11 @@ var cats = allCats.getElementsByClassName('catpic');
 
   var curRow, curCol;
 
-  for (let n = 0; n < rows; n++) {
+  for (var n = 0; n < rows; n++) {
     curRow = document.createElement('tr');
     table.appendChild(curRow);
 
-    for (let m = 0; m < cols; m++) {
+    for (var m = 0; m < cols; m++) {
       curCol = document.createElement('td');
       curRow.appendChild(curCol);
 

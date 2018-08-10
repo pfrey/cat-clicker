@@ -8,7 +8,6 @@ document.addEventListener("DOMContentLoaded", function() {
   let catList = document.getElementById("catList");
   let catArea = document.getElementById("catArea");
   let catNames = ["Sherbert", "Melon", "Bombpop", "Donut", "Wonton"];
-  let catClicked = 0;
 
   let catNameHeader = document.createElement('h2');
       catNameHeader.setAttribute("id", "catHeader");
@@ -26,7 +25,7 @@ document.addEventListener("DOMContentLoaded", function() {
         catButton.innerHTML = catName;
         catButton.className = "catNameListItem";
         catButton.setAttribute("id", "cat" + catName);
-        catButton.setAttribute("onclick", "showCat('" + catName + "', '" + catClicked++ + "');");
+        catButton.setAttribute("onclick", "showCat('" + catName + "');");
 
     catList.appendChild(catButton);
   }
@@ -34,31 +33,41 @@ document.addEventListener("DOMContentLoaded", function() {
 })
 
 
+let sherbertCount = 0;
+let melonCount = 0;
+let bombpopCount = 0;
+let donutCount = 0;
+let wontonCount = 0;
 
-function showCat(nameofcat, count){
+function showCat(nameofcat){
+  switch (nameofcat) {
+    case "Sherbert":
+      sherbertCount++;
+      displayCatCount = sherbertCount;
+      break;
+    case "Melon":
+      melonCount++;
+      displayCatCount = melonCount;
+      break;
+    case "Bombpop":
+      bombpopCount++;
+      displayCatCount = bombpopCount;
+      break;
+    case "Donut":
+      donutCount++;
+      displayCatCount = donutCount;
+      break;
+    case "Wonton":
+      wontonCount++;
+      displayCatCount = wontonCount;
+      break;
+  }
+  
+  
   document.getElementById('catPhotoArea').src='cat' + nameofcat + '.jpg';
   document.getElementById('catPhotoArea').className ='cat' + nameofcat;
 
   document.getElementById('catHeader').innerHTML = nameofcat;
 
-  document.getElementById('catCounter').innerHTML = "Number of clicks: " + count;
+  document.getElementById('catCounter').innerHTML = "Number of clicks: " + displayCatCount;
 }
-
-
-
-
-/*
-var count0 = 0;
-allCats0.addEventListener('click', function() {
-  count0++
-  var clickCount = document.getElementById('clickCounter' + 0);
-  clickCount.innerHTML = "Number of clicks: " + count0;
-}, false);
-
-var count1 = 0;
-allCats1.addEventListener('click', function() {
-  count1++
-  var clickCount = document.getElementById('clickCounter' + 1);
-  clickCount.innerHTML = "Number of clicks: " + count1;
-}, false);
-*/
