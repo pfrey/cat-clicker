@@ -3,27 +3,6 @@
   margin: 0 auto;
 }
 
-h1 {
-  
-}
-
-#counter {
-  text-align: center;
-  font-family: sans-serif;
-  margin-bottom: 20px;
-}
-
-img {
-  width:500px;
-  height: 300px; 
-  cursor:pointer;
-}
-
-#catHeader {
-  width: 600px;
-  text-align: end;
-}
-
 #catList {
   display: flex;
   flex-wrap: wrap;
@@ -35,4 +14,22 @@ img {
 
 button {
   width: 100%;
+}
+
+img {
+  width:500px;
+  height: 300px; 
+  cursor:pointer;
+}
+
+#catCounter {
+  width: 600px;
+  text-align: end;
+  font-family: sans-serif;
+  margin-bottom: 20px;
+}
+
+#catHeader {
+  width: 600px;
+  text-align: end;
 }

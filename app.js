@@ -3,71 +3,118 @@
  * Track and display the number of clicks on the cat photo
 */
 
-document.addEventListener("DOMContentLoaded", function() {
 
-  let catList = document.getElementById("catList");
-  let catArea = document.getElementById("catArea");
-  let catNames = ["Sherbert", "Melon", "Bombpop", "Donut", "Wonton"];
+/*--Model--*/
+var model = {
+  selectedCat: null,
+  allCats: [
+    {
+      name: 'Sherbert',
+      imgSrc: 'catSherbert.jpg',
+      catClickCount: 0
+    },
+    {
+      name: 'Melon',
+      imgSrc: 'catMelon.jpg',
+      catClickCount: 0
+    },
+    {
+      name: 'Bombpop',
+      imgSrc: 'catBombpop.jpg',
+      catClickCount: 0
+    },
+    {
+      name: 'Donut',
+      imgSrc: 'catDonut.jpg',
+      catClickCount: 0
+    },
+    {
+      name: 'Wonton',
+      imgSrc: 'catWonton.jpg',
+      catClickCount: 0
+    },
+  ]
+};
 
-  let catNameHeader = document.createElement('h2');
-      catNameHeader.setAttribute("id", "catHeader");
+/*--Octopus--*/
+var octopus = {
+  init: function() {
+    model.selectedCat = model.allCats[0];
 
-  let catCounterContainer = document.createElement('p');
-      catCounterContainer.setAttribute("id", "catCounter");
+    catList.init();
+    catDisplayArea.init();
+  },
 
-  catArea.appendChild(catNameHeader);
-  catArea.appendChild(catCounterContainer);
+  getAllCats: function() {
+    return model.allCats;
+  },
 
-  for (let name = 0; name < catNames.length; name++) {
-    let catName = catNames[name];
+  getSelectedCatData: function() {
+    return model.selectedCat;
+  },
 
-    let catButton = document.createElement('button');
-        catButton.innerHTML = catName;
-        catButton.className = "catNameListItem";
-        catButton.setAttribute("id", "cat" + catName);
-        catButton.setAttribute("onclick", "showCat('" + catName + "');");
+  setCatView: function(nameofcat) {
+    model.selectedCat = nameofcat;
+  },
 
-    catList.appendChild(catButton);
+  increaseCount: function() {
+    model.selectedCat.catClickCount++;
+    catDisplayArea.render();
   }
+};
 
-})
+/*--Views--*/
+var catDisplayArea = {
+  init: function() {
+    this.catElement = document.getElementById('allCats');
+    this.catNameElement = document.getElementById('catHeader');
+    this.catPhotoElement = document.getElementById('catPhotoArea');
+    this.clickCountElement = document.getElementById('catCounter');
 
+    this.catPhotoElement.addEventListener('click', function() {
+      octopus.increaseCount();
+    });
 
-let sherbertCount = 0;
-let melonCount = 0;
-let bombpopCount = 0;
-let donutCount = 0;
-let wontonCount = 0;
+    this.render();
+  },
 
-function showCat(nameofcat){
-  switch (nameofcat) {
-    case "Sherbert":
-      sherbertCount++;
-      displayCatCount = sherbertCount;
-      break;
-    case "Melon":
-      melonCount++;
-      displayCatCount = melonCount;
-      break;
-    case "Bombpop":
-      bombpopCount++;
-      displayCatCount = bombpopCount;
-      break;
-    case "Donut":
-      donutCount++;
-      displayCatCount = donutCount;
-      break;
-    case "Wonton":
-      wontonCount++;
-      displayCatCount = wontonCount;
-      break;
+  render: function() {
+    var selectedCat = octopus.getSelectedCatData();
+    this.clickCountElement.textContent = "Clicked: " + selectedCat.catClickCount;
+    this.catNameElement.textContent = selectedCat.name;
+    this.catPhotoElement.src = selectedCat.imgSrc;
   }
-  
-  
-  document.getElementById('catPhotoArea').src='cat' + nameofcat + '.jpg';
-  document.getElementById('catPhotoArea').className ='cat' + nameofcat;
+};
 
-  document.getElementById('catHeader').innerHTML = nameofcat;
+var catList = {
+  init: function() {
+    this.catListElement = document.getElementById('catList');
 
-  document.getElementById('catCounter').innerHTML = "Number of clicks: " + displayCatCount;
-}
+    this.render();
+  },
+
+  render: function() {
+    var cat, element, i;
+    var allCats = octopus.getAllCats();
+
+    this.catListElement.innerHTML = '';
+
+    for (i = 0; i < allCats.length; i++) {
+      cat = allCats[i];
+
+      element = document.createElement('button');
+      element.innerHTML = cat.name;
+
+      element.addEventListener('click', (function(catCopy) {
+        return function() {
+          octopus.setCatView(catCopy);
+          catDisplayArea.render();
+        };
+      }) (cat));
+
+      this.catListElement.appendChild(element);
+    }
+  }
+};
+
+octopus.init();
